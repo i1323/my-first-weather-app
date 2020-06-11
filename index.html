@@ -1,9 +1,285 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Maggie's weather forecast</title>
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+
+    <!--H2 Font Style - Frederick the Great-->
+    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet" />
+
+    <!--H3 Font Style - Amatic-->
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet" />
+
+    <!--Font Style - Open Sans Condensed-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet" />
+
+    <!--Fontawesome -->
+    <script src="https://kit.fontawesome.com/ea4addfbb7.js" crossorigin="anonymous"></script>
+
+    <!--Stylesheet-->
+    <link rel="stylesheet" href="src/styles.css" />
+</head>
+
+<body>
+    <div class="wholeContent">
+        <h1 class="text-right">
+            <form id="locate">
+                <input type="search" name="search" id="location-search" class="search"
+                    placeholder="Search your favorite city" />
+                <input type="submit" class="search-button" value="🔍">
+            </form>
+        </h1>
+        <hr class="my-4" />
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="firstDay">
+                    <div class="card rounded">
+                        <div class="card-body">
+                            <h2 class="card-title">Today</h2>
+                            <h5 class="text-right" id="todayIsThisDay"></h5>
+                            <p class="card-text">
+                                <img src="media/sun.png" alt="sun" width="100px" />
+                            </p>
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h4>
+                                        <span id="todays-temperature"></span>°C
+                                    </h4>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h4 class="text-right" id="todays-description">HOT</h4>
+                                </div>
+                            </div>
+                            <hr />
+                            <h4 class="currentCity" id="currentCity">Current City</h4>
+                            <br />
+                            <h5>
+                                <ul>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                13:00
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h5>
+                                                    <i class="fas fa-sun"></i>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                14:00
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h5>
+                                                    <i class="fas fa-sun"></i>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                15:00
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h5>
+                                                    <i class="fas fa-sun"></i>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <br />
+                            </h5>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6>17°C / 38°C</h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h6 class="text-right">HOT</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <h6><i class="fas fa-umbrella"> </i> 0%</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="secondDay">
+                    <div class="card rounded">
+                        <div class="card-body">
+                            <h3 class="card-title">Tomorrow</h3>
+                            <h5 class="text-right" id="second-Day">
+                                May 16th
+                            </h5>
+                            <p class="card-text">
+                                <i class="fas fa-cloud-showers-heavy"></i>
+                            </p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6>17°C / 20 °C</h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h6 class="text-right">RAIN</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <h6><i class="fas fa-umbrella"> </i> 0%</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="fifthDay">
+                    <div class="card rounded">
+                        <div class="card-body">
+                            <h3 class="card-title">Tuesday</h3>
+                            <h5 class="text-right" id="fifth-Day">
+                                May 19th
+                            </h5>
+                            <p class="card-text">
+                                <i class="fas fa-cloud-sun"></i>
+                            </p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6>22°C / 28°C</h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h6 class="text-right">SUNNY-CLOUDY</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <h6><i class="fas fa-umbrella"> </i> 0%</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="thirdDay">
+                    <div class="card rounded">
+                        <div class="card-body">
+                            <h3 class="card-title">Sunday</h3>
+                            <h5 class="text-right" id="third-Day">
+                                May 17th
+                            </h5>
+                            <p class="card-text">
+                                <i class="fas fa-cloud-sun-rain"></i>
+                            </p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6>10°C / 22°C</h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h6 class="text-right">SUN & RAIN</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <h6><i class="fas fa-umbrella"> </i> 0%</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="sixthDay">
+                    <div class="card rounded">
+                        <div class="card-body">
+                            <h3 class="card-title">Wednesday</h3>
+                            <h5 class="text-right" id="sixth-Day">
+                                May 20th
+                            </h5>
+                            <p class="card-text">
+                                <i class="fas fa-bolt"></i>
+                            </p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6>7°C / 18°C</h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h6 class="text-right">THUNDER</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <h6><i class="fas fa-umbrella"> </i> 0%</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="fourthDay">
+                    <div class="card rounded">
+                        <div class="card-body">
+                            <h3 class="card-title">Monday</h3>
+                            <h5 class="text-right" id="fourth-Day">
+                                May 18th
+                            </h5>
+                            <p class="card-text">
+                                <i class="far fa-snowflake"></i>
+                            </p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6>-5°C / 3°C</h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h6 class="text-right">SNOW</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <h6><i class="fas fa-umbrella"> </i> 0%</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="seventhDay">
+                    <div class="card rounded">
+                        <div class="card-body">
+                            <h3 class="card-title">Thursday</h3>
+                            <h5 class="text-right" id="seventh-day">
+                                May 21st
+                            </h5>
+                            <p class="card-text">
+                                <i class="fas fa-cloud"></i>
+                            </p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6>5°C / 12°C</h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h6 class="text-right">CLOUDY</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <h6><i class="fas fa-umbrella"> </i> 0%</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="impressum">
+        coded by
+        <a href="https://www.instagram.com/maggie__margarete/" target="_blank">Maggie</a>
+    </p>
+    </div>
+    <script src="src/app.js"></script>
+</body>
+
 </html>
